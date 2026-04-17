@@ -1,25 +1,4 @@
-import requests
-from bs4 import BeautifulSoup
-
-TOKEN = "8657084178:AAEpghLehd1ijjP57qacmaN3kKFkQtcCNj4"
-CHAT_ID = "663371928"
-
-def send(msg):
-    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
-    requests.post(url, data={"chat_id": CHAT_ID, "text": msg, "parse_mode": "HTML"})
-
-def get_kwork_rss():
-    # RSS-лента Кворка - ее они отдают охотнее, чем страницы сайта
-    url = "https://kwork.ru/projects?c=all&t=all&rss=1"
-    headers = {'User-Agent': 'Mozilla/5.0'}
-    
-    try:
-        res = requests.get(url, headers=headers, timeout=15)
-        soup = BeautifulSoup(res.text, 'xml') # Читаем как XML
-        items = soup.find_all('item')
-        
-        if not items:
-            send("🚫 Лента пуста. Кворк всё еще фильтрует запросы.")
+ще фильтрует запросы.")
             return
 
         send(f"📦 <b>ПОСЛЕДНИЕ ЗАКАЗЫ С KWORK:</b>")
